@@ -18,7 +18,7 @@ const ArticleItem = ({ article }: any) => {
           <span className={articleStyles.time}>{article.time}</span>
         </div>
         <p>{article.excerpt}</p>
-        <a className={articleStyles.button}>ادامه</a>
+        <div className={articleStyles.button}>ادامه</div>
       </a>
     </Link>
   );
