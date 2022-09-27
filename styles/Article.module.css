@@ -49,6 +49,10 @@
   line-height: 1.5;
   color: #a7a7a7;
   padding: 1rem 0 0 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 300px;
+  text-overflow: ellipsis;
 }
 
 .logo {
@@ -74,7 +78,7 @@
   border: 1px solid #0089ff;
   color: #0089ff;
   padding: 7px;
-  margin: 8px 0 0 0;
+  margin: 1rem 0 0 0;
   border-radius: 6px;
   display: flex;
   align-items: center;
