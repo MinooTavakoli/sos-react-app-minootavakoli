@@ -1,0 +1,128 @@
+.grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 100%;
+  direction: rtl;
+}
+
+.gridTitle {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  direction: rtl;
+  padding: 0 64px;
+}
+
+.gridTitleDetail {
+  color: #0089ff;
+}
+
+.card {
+  margin: 1rem;
+  flex-basis: 22%;
+  padding: 1rem;
+  text-align: justify;
+  color: inherit;
+  text-decoration: none;
+  border: 1px solid #0089ff;
+  border-radius: 16px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.card:hover,
+.card:focus,
+.card:active {
+  color: #0070f3;
+  border-color: #0070f3;
+}
+
+.card h3 {
+  margin: 1rem 0 1rem 0;
+  font-size: 1.5rem;
+}
+
+.card p {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: #a7a7a7;
+  padding: 1rem 0 0 0;
+}
+
+.logo {
+  height: 1em;
+}
+
+.image {
+  border-radius: 16px;
+}
+
+.wrapper {
+  display: flex;
+}
+
+.time {
+  margin: 0 10px 0 0;
+  color: #a7a7a7;
+}
+
+.button {
+  width: 136px;
+  height: 40px;
+  border: 1px solid #0089ff;
+  color: #0089ff;
+  padding: 7px;
+  margin: 8px 0 0 0;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  float: left;
+  transition: 0.3s;
+}
+
+.button:hover {
+  color: #fff;
+  background: #0089ff;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+@media (max-width: 600px) {
+  .grid {
+    width: 100%;
+    flex-direction: column;
+  }
+  .gridTitle {
+    padding: 0 20px;
+  }
+  .gridTitleDetail {
+    display: none;
+  }
+  .moreButtonWrapper {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .moreButton {
+    width: 136px;
+    border: 1px solid #0089ff;
+    color: #0089ff;
+    padding: 7px;
+    margin: 8px 0 0 0;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (min-width: 600px) {
+  .moreButtonWrapper {
+    display: none;
+  }
+}
