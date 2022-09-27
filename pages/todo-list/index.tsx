@@ -1,29 +1,25 @@
 import { useState, useEffect } from "react";
-import { server } from "../../config";
 import { InferGetStaticPropsType } from "next";
 import * as React from "react";
 
 function BooksPage({ posts }: InferGetStaticPropsType<typeof getStaticProps>) {
   const [postList, setPostList] = React.useState(posts);
 
-  console.log("possss",postList);
-  
-
   const [title, setTitle] = useState([]);
   const [desc, setDesc] = useState([]);
   const [books, setBooks] = useState([]);
+  const [dataItem, setdataItem] = useState([]);
 
   const fetchBooks = async () => {
     const response = await fetch("http://localhost:3000/posts");
     const data = await response.json();
-    console.log(data);
-    setBooks(data);
   };
 
   const submitBook = async () => {
     const response = await fetch("http://localhost:3000/posts", {
       method: "POST",
       body: JSON.stringify({
+        id: Math.random(),
         title,
         desc,
       }),
@@ -32,15 +28,37 @@ function BooksPage({ posts }: InferGetStaticPropsType<typeof getStaticProps>) {
       },
     });
     const data = await response.json();
-    setBooks(data);
-    console.log(data);
+    setdataItem(data);
+    postList.push(data);
+
+    fetchBooks();
   };
 
-  console.log(books);
+  const deleteBook = async (bookId) => {
+    const response = await fetch(`http://localhost:3000/posts/${bookId}`, {
+      method: "DELETE",
+    });
+    const data = await response.json();
+    setdataItem(data);
 
-  useEffect(() => {
+    // const book = posts.find((book) => book.id === parseInt(bookId));
+    // const deletedbook = posts.find((book) => book.id === parseInt(bookId));
+    // const index = postList.findIndex((book) => book.id === parseInt(bookId));
+    // postList.splice(index, 1);
+    // setdataItem(postList);
+    // postList.push(dataItem);
+    // postList.push(data)
+    console.log("pp", postList);
+    console.log("ddd", data);
 
-  }, [books]);
+    fetchBooks();
+  };
+  // const fetchBooks = async () => {
+  //   const response = await fetch('/api/books')
+  //   const data = await response.json()
+  //   console.log(data)
+  //   setBooks(data)
+  // }
 
   return (
     <>
@@ -66,14 +84,17 @@ function BooksPage({ posts }: InferGetStaticPropsType<typeof getStaticProps>) {
       </div>
       <br />
 
-      {postList.map((book) => {
+      {postList?.map((book) => {
+        console.log("postList", postList);
+
         return (
           <div key={book.id}>
-            {book.id}.<br />
+            {book.id}
             {"Title: "}
             {book.title}.<br />
             {book.desc}
             <hr />
+            <button onClick={() => deleteBook(book.id)}>Delete</button>
           </div>
         );
       })}
