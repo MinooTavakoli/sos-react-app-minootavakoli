@@ -19,7 +19,7 @@ const article = ({ article }: any) => {
             className={articleStyles.imageItem}
           />
         </div>
-        <h1>{article.title}</h1>
+        <h3>{article.title}</h3>
         <p>{article.body}</p>
         <br />
         <div className={articleStyles.timeWrapper}>

@@ -34,7 +34,7 @@
 
 .backButton {
   position: absolute;
-  left: 170px;
+  left: 80px;
   top: 88px;
   cursor: pointer;
   background-color: #0089ff;
@@ -52,7 +52,7 @@
 }
 
 .cardItem {
-  width: 80%;
+  width: 90%;
   margin: 1rem;
   padding: 1rem;
   text-align: justify;
@@ -68,7 +68,7 @@
   width: 40% !important;
 }
 
-.imageItem{
+.imageItem {
   border-radius: 10px;
 }
 
