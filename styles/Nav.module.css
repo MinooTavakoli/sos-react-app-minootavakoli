@@ -32,3 +32,67 @@
   min-height: 44% !important;
   max-height: 100% !important;
 }
+
+.menuDrop {
+  background-color: white;
+  position: fixed;
+  width: 66%;
+  height: 100%;
+  top: 0px;
+  right: -1px;
+  z-index: 1;
+  box-shadow: 0 0 4px rgb(0 0 0 / 29%);
+  border-radius: 8px 0 0 0;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.menuItemWrapper {
+  padding: 10px;
+  color: #355ec1;
+  display: flex;
+  flex-direction: column;
+}
+
+.menuItemWrapper a {
+  padding: 16px 8px;
+  border-bottom: 1px solid #e4e4e4;
+  font-size: 18px;
+}
+
+.closeIcon {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+@media (max-width: 600px) {
+  .nav {
+    padding: 10px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+  .nav ul li a {
+    display: none;
+  }
+  .nav ul li h3 {
+    text-align: center;
+  }
+  .profileIcon {
+    min-width: 67% !important;
+  }
+  .menuIcon {
+    display: flex;
+    min-height: 27% !important;
+  }
+
+}
+
+@media (min-width: 600px) {
+  .menuIcon {
+    display: none;
+  }
+}
