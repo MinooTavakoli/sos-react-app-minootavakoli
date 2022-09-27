@@ -1,14 +1,32 @@
 import { GetStaticPropsContext } from "next/types/index";
-import { server } from "../../../config";
 import Link from "next/link";
+import Image from "next/image";
+import { server } from "../../../config";
+import clock from "../../../public/clock.png";
+import articleStyles from "../../../styles/Article.module.css";
 
 const article = ({ article }: any) => {
   return (
     <>
-      <h1>{article.title}</h1>
-      <p>{article.body}</p>
-      <br />
-      <Link href="/">Go Back</Link>
+      <Link href="/">
+        <div className={articleStyles.backButton}>بازگشت</div>
+      </Link>
+      <div className={articleStyles.cardItem}>
+        <div className={articleStyles.imageItemWrapper}>
+          <Image
+            src={article.image}
+            alt="article-item-image"
+            className={articleStyles.imageItem}
+          />
+        </div>
+        <h1>{article.title}</h1>
+        <p>{article.body}</p>
+        <br />
+        <div className={articleStyles.timeWrapper}>
+          <Image src={clock} alt="clock_icon" />
+          <span className={articleStyles.timeItem}>{article.time}</span>
+        </div>
+      </div>
     </>
   );
 };
