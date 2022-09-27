@@ -1,11 +1,9 @@
 .container {
-  min-height: 100vh;
   padding: 0 0.5rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  height: 100vh;
 }
 
 .main {
@@ -18,4 +16,8 @@
   font-size: 1.25rem;
 }
 
-
+@media (max-width: 600px) {
+  .main {
+    padding: 5rem 0 1rem 0;
+  }
+}
