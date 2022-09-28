@@ -1,21 +1,22 @@
 import { useState, useEffect } from "react";
-import { InferGetStaticPropsType } from "next";
 import * as React from "react";
 
-function BooksPage({ posts }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const [postList, setPostList] = React.useState(posts);
-
+function TodoList() {
+  const [postList, setPostList] = useState([]);
   const [title, setTitle] = useState([]);
   const [desc, setDesc] = useState([]);
-  const [books, setBooks] = useState([]);
   const [dataItem, setdataItem] = useState([]);
 
-  const fetchBooks = async () => {
-    const response = await fetch("http://localhost:3000/posts");
-    const data = await response.json();
-  };
+  useEffect(() => {
+    const fetchPositions = async () => {
+      const resp = await fetch(`http://localhost:3000/posts`);
+      const posts = await resp.json();
+      setPostList(posts);
+    };
+    fetchPositions();
+  }, []);
 
-  const submitBook = async () => {
+  const submitPost = async () => {
     const response = await fetch("http://localhost:3000/posts", {
       method: "POST",
       body: JSON.stringify({
@@ -30,35 +31,16 @@ function BooksPage({ posts }: InferGetStaticPropsType<typeof getStaticProps>) {
     const data = await response.json();
     setdataItem(data);
     postList.push(data);
-
-    fetchBooks();
   };
 
-  const deleteBook = async (bookId) => {
-    const response = await fetch(`http://localhost:3000/posts/${bookId}`, {
+  const deletePost = async (postId: number) => {
+    const response = await fetch(`http://localhost:3000/posts/${postId}`, {
       method: "DELETE",
     });
-    const data = await response.json();
-    setdataItem(data);
-
-    // const book = posts.find((book) => book.id === parseInt(bookId));
-    // const deletedbook = posts.find((book) => book.id === parseInt(bookId));
-    // const index = postList.findIndex((book) => book.id === parseInt(bookId));
-    // postList.splice(index, 1);
-    // setdataItem(postList);
-    // postList.push(dataItem);
-    // postList.push(data)
-    console.log("pp", postList);
-    console.log("ddd", data);
-
-    fetchBooks();
+    const responseGet = await fetch("http://localhost:3000/posts");
+    const dataGet = await responseGet.json();
+    setPostList(dataGet);
   };
-  // const fetchBooks = async () => {
-  //   const response = await fetch('/api/books')
-  //   const data = await response.json()
-  //   console.log(data)
-  //   setBooks(data)
-  // }
 
   return (
     <>
@@ -67,7 +49,7 @@ function BooksPage({ posts }: InferGetStaticPropsType<typeof getStaticProps>) {
         <input
           type="text"
           value={title}
-          onChange={(e) => {
+          onChange={(e: any) => {
             setTitle(e.target.value);
           }}
         />
@@ -76,25 +58,23 @@ function BooksPage({ posts }: InferGetStaticPropsType<typeof getStaticProps>) {
         <input
           type="text"
           value={desc}
-          onChange={(e) => {
+          onChange={(e: any) => {
             setDesc(e.target.value);
           }}
         />
-        <button onClick={submitBook}>Submit book</button>
+        <button onClick={submitPost}>افزودن</button>
       </div>
       <br />
 
-      {postList?.map((book) => {
-        console.log("postList", postList);
-
+      {postList?.map((postItem: any) => {
         return (
-          <div key={book.id}>
-            {book.id}
+          <div key={postItem.id}>
+            {postItem.id}
             {"Title: "}
-            {book.title}.<br />
-            {book.desc}
+            {postItem.title}.<br />
+            {postItem.desc}
             <hr />
-            <button onClick={() => deleteBook(book.id)}>Delete</button>
+            <button onClick={() => deletePost(postItem.id)}>حذف</button>
           </div>
         );
       })}
@@ -102,15 +82,4 @@ function BooksPage({ posts }: InferGetStaticPropsType<typeof getStaticProps>) {
   );
 }
 
-export default BooksPage;
-
-export const getStaticProps = async () => {
-  const res = await fetch(`http://localhost:3000/posts`);
-  const posts = await res.json();
-
-  return {
-    props: {
-      posts,
-    },
-  };
-};
+export default TodoList;
