@@ -1,11 +1,12 @@
-import { useState, useEffect } from "react";
-import * as React from "react";
+import React, { useState, useEffect } from "react";
+import todoStyles from "../../styles/Todo.module.css";
 
 function TodoList() {
   const [postList, setPostList] = useState([]);
   const [title, setTitle] = useState([]);
-  const [desc, setDesc] = useState([]);
   const [dataItem, setdataItem] = useState([]);
+  const [edit, setEdit] = useState(undefined);
+  const [titleEdit, setTitleEdit] = useState("");
 
   useEffect(() => {
     const fetchPositions = async () => {
@@ -22,7 +23,6 @@ function TodoList() {
       body: JSON.stringify({
         id: Math.random(),
         title,
-        desc,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -31,6 +31,7 @@ function TodoList() {
     const data = await response.json();
     setdataItem(data);
     postList.push(data);
+    setTitle([]);
   };
 
   const deletePost = async (postId: number) => {
@@ -42,43 +43,112 @@ function TodoList() {
     setPostList(dataGet);
   };
 
+  const updatePost = async (postId: number) => {
+    const response = await fetch(`http://localhost:3000/posts/${postId}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        title: titleEdit,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+    setdataItem(data);
+    setTitle([]);
+    setEdit(undefined);
+    const responseGet = await fetch("http://localhost:3000/posts");
+    const dataGet = await responseGet.json();
+    setPostList(dataGet);
+  };
+
   return (
-    <>
-      <div>
-        {"Title: "}
+    <div className={todoStyles.todoComponent}>
+      <div className={todoStyles.todoAddInputWrapper}>
         <input
           type="text"
           value={title}
           onChange={(e: any) => {
             setTitle(e.target.value);
           }}
+          className={todoStyles.todoAddInput}
         />
-        <br />
-        {"Desc: "}
-        <input
-          type="text"
-          value={desc}
-          onChange={(e: any) => {
-            setDesc(e.target.value);
-          }}
-        />
-        <button onClick={submitPost}>افزودن</button>
+        <button onClick={submitPost} className={todoStyles.buttonCustom}>
+          Add
+        </button>
       </div>
       <br />
-
-      {postList?.map((postItem: any) => {
-        return (
-          <div key={postItem.id}>
-            {postItem.id}
-            {"Title: "}
-            {postItem.title}.<br />
-            {postItem.desc}
-            <hr />
-            <button onClick={() => deletePost(postItem.id)}>حذف</button>
-          </div>
-        );
-      })}
-    </>
+      <div className={todoStyles.todoWrapper}>
+        {postList?.map((postItem: any) => {
+          return (
+            <div key={postItem.id} className={todoStyles.todoWrapperItem}>
+              {edit === postItem.id && edit ? (
+                <>
+                  <input
+                    key={edit}
+                    placeholder={postItem.title}
+                    type="text"
+                    onChange={(e) => {
+                      setTitleEdit(e.target.value);
+                    }}
+                    className={todoStyles.todoAddInput}
+                    style={{ width: "254px" }}
+                    onKeyDown={(e) => {
+                      if (e.keyCode === 13) {
+                        submitPost();
+                      }
+                    }}
+                  />
+                </>
+              ) : (
+                <div className={todoStyles.titlePost}>
+                  <div>{postItem.title}</div>
+                </div>
+              )}
+              <div className={todoStyles.buttonWrapper}>
+                <button
+                  style={{
+                    width: "120px",
+                    backgroundColor:
+                      edit === postItem.id && edit ? "#76d870" : "#f9939d",
+                  }}
+                  className={todoStyles.buttonCustomTemplate}
+                  onClick={() => {
+                    edit ? updatePost(postItem.id) : deletePost(postItem.id);
+                  }}
+                >
+                  {edit === postItem.id && edit ? "Save" : "Delete"}
+                </button>
+                {edit === postItem.id && edit ? (
+                  <button
+                    style={{ width: "120px", backgroundColor: "#c1c1c1" }}
+                    className={todoStyles.buttonCustomTemplate}
+                    onClick={() => {
+                      setEdit(undefined);
+                    }}
+                  >
+                    Cancel
+                  </button>
+                ) : (
+                  <button
+                    style={{
+                      width: "120px",
+                      backgroundColor: "#bd93f9",
+                    }}
+                    className={todoStyles.buttonCustomTemplate}
+                    onClick={() => {
+                      setEdit(postItem.id);
+                    }}
+                  >
+                    Edit
+                  </button>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
   );
 }
 
