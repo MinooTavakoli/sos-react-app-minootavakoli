@@ -1,0 +1,100 @@
+.todoComponent {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+}
+
+.todoAddInputWrapper {
+  width: 46%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.todoAddInput {
+  background-color: #ffffff;
+  border: none;
+  color: #8027fd;
+  box-shadow: 0 0 4px #bd93f9;
+  border-radius: 6px;
+  height: 36px;
+  width: 50%;
+  margin: 8px;
+  padding: 4px;
+  outline: none;
+}
+
+.buttonWrapper {
+  display: flex;
+  flex-direction: row !important;
+}
+
+.buttonCustom {
+  background-color: #bd93f9;
+  border: none;
+  border-radius: 0.5rem;
+  color: #f8f8f2;
+  height: 38px;
+  width: 16%;
+  margin: 0.5rem;
+  outline: none;
+  padding: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.buttonCustom:hover {
+  border: 1px solid #bd93f9;
+  background-color: #f8f8f2;
+  color: #bd93f9;
+}
+
+.todoWrapper {
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 0;
+}
+
+.todoWrapperItem {
+  width: 31%;
+  justify-content: space-evenly;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 4px rgb(189 147 248 / 38%);
+  margin: 10px 0;
+  padding: 16px;
+  border-radius: 6px;
+}
+
+.titlePost {
+  width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+  color: #4300a2;
+  margin: 10px;
+  padding: 4px;
+  font-size: 15px;
+  text-align: justify;
+}
+
+.buttonCustomTemplate {
+  border: none;
+  border-radius: 0.5rem;
+  color: #f8f8f2;
+  height: 38px;
+  width: 16%;
+  margin: 0.5rem;
+  outline: none;
+  padding: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
